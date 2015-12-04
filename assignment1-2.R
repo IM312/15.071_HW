@@ -25,3 +25,28 @@ ProcterGamble$Date = as.Date(ProcterGamble$Date, "%M/%d/%y")
 
 # How many obs are there in each data set?
 str(IBM)
+
+## Problem 1.2-4
+# What is the earliest year in our datasets?
+# What is the latest year in our datasets?
+# What is the mean stock price of IBM?
+summary(IBM)
+
+## Problem 1.5
+# What is the minimum stock price of GE?
+summary(GE)
+
+## Problem 1.6
+# What is the maximum stock price of CocaCola?
+summary(CocaCola)
+
+## Problem 1.7
+# What is the median stock price of Boeing?
+summary(Boeing)
+
+## Problem 1.8
+# What is the standard deviation of the stock price of Procter & Gamble?
+sd(ProcterGamble$StockPrice)
+
+
+
