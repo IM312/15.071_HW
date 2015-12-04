@@ -22,3 +22,6 @@ IBM$Date = as.Date(IBM$Date, "%m/%d/%y")
 GE$Date = as.Date(GE$Date, "%M/%d/%y")
 CocaCola$Date = as.Date(CocaCola$Date, "%M/%d/%y")
 ProcterGamble$Date = as.Date(ProcterGamble$Date, "%M/%d/%y")
+
+# How many obs are there in each data set?
+str(IBM)
