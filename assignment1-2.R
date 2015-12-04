@@ -48,5 +48,18 @@ summary(Boeing)
 # What is the standard deviation of the stock price of Procter & Gamble?
 sd(ProcterGamble$StockPrice)
 
+## Problem 2.1
+# Plot CocaCola's stock prices
+plot(CocaCola$Date, CocaCola$StockPrice, type="l", col="red")
+
+## Problem 2.2 
+# Add a line for Procter & Gamble
+lines(ProcterGamble$Date, ProcterGamble$StockPrice, col="blue")
+
+## Problem 2.3
+# Add a vertical line at a certain date
+abline(v=as.Date(c("1983-01-01")), lwd=2)
+
+
 
 
