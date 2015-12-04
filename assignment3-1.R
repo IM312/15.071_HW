@@ -24,6 +24,29 @@ which.max(songs$tempo)
 songs$songtitle[6206]
 
 
+## Problem 2.1
+# Split the data into training and test sets
+SongsTrain = subset(songs, year<= 2009)
+SongsTest = subset(songs, year==2010)
+# How many obs are in the training set
+str(SongsTrain)
+## Problem 2.2
+# Create the prediction model using only numerical variables
+# Define a vector of vars that won't be used in the model
+nonvars = c("year", "songtitle", "artistname", "songID", "artistID")
+# Remove nonvars from training and test sets
+SongsTrain = SongsTrain[,!(names(SongsTrain) %in% nonvars)]
+SongsTest = SongsTest[,!(names(SongsTest) %in% nonvars)]
+# Build logistic regression model using glm function
+SongsLog1 = glm(Top10 ~ ., data=SongsTrain, family=binomial)
+summary(SongsLog1)
+
+
+
+
+
+
+
 
 
 
