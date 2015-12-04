@@ -60,6 +60,35 @@ lines(ProcterGamble$Date, ProcterGamble$StockPrice, col="blue")
 # Add a vertical line at a certain date
 abline(v=as.Date(c("1983-01-01")), lwd=2)
 
+## Problem 3.1
+# Look at how stock prices changes from 1995-2005
+plot(CocaCola$Date[301:432], CocaCola$StockPrice[301:432], type="l", col="red", ylim=c(1,210))
+# Plot the obs for the other companies
+lines(GE$Date[301:432], GE$StockPrice[301:432], col="blue")
+lines(IBM$Date[301:432], IBM$StockPrice[301:432], col="green")
+lines(ProcterGamble$Date[301:432], ProcterGamble$StockPrice[301:432], col="purple")
+lines(Boeing$Date[301:432], Boeing$StockPrice[301:432], col="orange")
+# Which stock fell the most in March 2000
+abline(v=as.Date((c("2000-03-01"))))
+## Problem 3.3
+# Comaring Sept 1997 to Nov 1997, which companis saw a decreasing trend in their stock price
+abline(v=as.Date((c("1997-09-01"))))
+abline(v=as.Date((c("1997-11-01"))))
+
+## Problem 4.1
+# Use tapply to calculate the mean stock price of IBM, sorted by months
+tapply(IBM$StockPrice, months(IBM$Date), mean)
+# Compare the monthly averages to the overall average stock price
+summary(IBM$StockPrice)
+# Repeat the tapply for the remaining companies
+tapply(GE$StockPrice, months(GE$Date), mean)
+tapply(ProcterGamble$StockPrice, months(ProcterGamble$Date), mean)
+tapply(Boeing$StockPrice, months(Boeing$Date), mean)
+tapply(CocaCola$StockPrice, months(CocaCola$Date), mean)
+# the above functions are only returning the mean for Dec???
+
+## DONE
+
 
 
 
