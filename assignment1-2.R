@@ -25,4 +25,3 @@ ProcterGamble$Date = as.Date(ProcterGamble$Date, "%M/%d/%y")
 
 # How many obs are there in each data set?
 str(IBM)
-#test
