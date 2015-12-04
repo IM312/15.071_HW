@@ -41,6 +41,21 @@ SongsTest = SongsTest[,!(names(SongsTest) %in% nonvars)]
 SongsLog1 = glm(Top10 ~ ., data=SongsTrain, family=binomial)
 summary(SongsLog1)
 
+## Problem 3.1
+# What is the correlation between the variables "loudness" and "energy" in the training set
+cor(SongsTrain$loudness, SongsTrain$energy)
+## Problem 3.2
+# Create model 2, omitting "loudness"
+SongsLog2 = glm(Top10 ~ . - loudness, data=SongsTrain, family=binomial)
+summary(SongsLog2)
+## Problem 3.3
+# Create model 3, omitting "energy"
+SongsLog3 = glm(Top10 ~ . - energy, data=SongsTrain, family=binomial)
+summary(SongsLog3)
+
+
+
+
 
 
 
