@@ -61,6 +61,8 @@ table(SongsTest$Top10, testPredict >= 0.45)
 # Is there an incremental benefit to using model 3 instead of a baseline model. What is the accuracy of the baseline model
 table(SongsTest$Top10)
 
+## DONE
+
 
 
 
