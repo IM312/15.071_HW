@@ -8,4 +8,9 @@ loans = read.csv("loans.csv")
 str(loans)
 summary(loans)
 # What proportion of loans were not paid in full
+table(loans$not.fully.paid)
+## Problem 1.3
+# Build a data frame limited to observations with some missing data
+
+
 
