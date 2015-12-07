@@ -51,6 +51,12 @@ table(Test$not.fully.paid, as.numeric(Test$predicted.risk >= threshold))
 table(Test$not.fully.paid)
 ## Problem 2.4
 # Use the ROCR package to compute the test set AUC
+library(ROCR)
+ROCRpred = prediction(Test$predicted.risk, Test$not.fully.paid)
+as.numeric(performance(ROCRpred, "auc")@y.values)
+
+## Problem 3.2
+
 
 
 
