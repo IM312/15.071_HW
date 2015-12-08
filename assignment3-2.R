@@ -30,6 +30,6 @@ impResults = read.csv("loans_imputed.csv")
 summary(impResults)
 
 ## Problem 2.1
-
+## 
 
 
