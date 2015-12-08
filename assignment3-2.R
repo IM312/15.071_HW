@@ -16,7 +16,6 @@ nrow(missing)
 table(missing$not.fully.paid)
 ## Problem 1.4
 # Use multiple imputation to fill in the missing data values
-install.packages("mice")
 library(mice)
 set.seed(144)
 # Set vars.for.imputation to all variables in the data frame except not.fully.paid, to impute the values using all of the 
@@ -31,11 +30,12 @@ summary(impResults)
 
 ## Problem 2.1
 # Split the dataset into training and testing sets
+install.packages("caTools")
 library(caTools)
 # Set the random seed to 144
 set.seed(144)
 # Split so 70% of obs are for the training set
-spl = sample.split(loans$not.fully.paid, 0.7)
+spl= sample.split(loans$not.fully.paid, 0.7)
 Train = subset(loans, spl == TRUE)
 Test = subset(loans, spl == FALSE)
 # Use logistig regression on the training set to predict the dependent variable
@@ -51,6 +51,7 @@ table(Test$not.fully.paid, as.numeric(Test$predicted.risk >= threshold))
 table(Test$not.fully.paid)
 ## Problem 2.4
 # Use the ROCR package to compute the test set AUC
+install.packages("ROCR")
 library(ROCR)
 ROCRpred = prediction(Test$predicted.risk, Test$not.fully.paid)
 as.numeric(performance(ROCRpred, "auc")@y.values)
