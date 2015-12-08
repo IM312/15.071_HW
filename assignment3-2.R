@@ -68,7 +68,7 @@ library(ROCR)
 ROCRpred = prediction(test$predicted.risk, test$not.fully.paid)
 as.numeric(performance(ROCRpred, "auc")@y.values)
 
-## Problem 3.2
+## Problem 3.1
 
 
 
