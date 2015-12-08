@@ -69,6 +69,14 @@ ROCRpred = prediction(test$predicted.risk, test$not.fully.paid)
 as.numeric(performance(ROCRpred, "auc")@y.values)
 
 ## Problem 3.1
+# Use independent var, int.rate as a "smart baseline"
+# Bivariate logistic regression model using the training set to predict the dependent var not.fully.paid using only
+# the var int.rate
+bivariate = glm(impResults$not.fully.paid ~ int.rate, data = train, family = "binomial")
+summary(bivariate)
+# Check for correlation
+cor(train$int.rate, train$fico)
+
 
 
 
