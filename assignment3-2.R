@@ -9,11 +9,13 @@ str(loans)
 summary(loans)
 # What proportion of loans were not paid in full
 table(loans$not.fully.paid)
+
 ## Problem 1.3
 # Build a data frame limited to observations with some missing data
 missing = subset(loans, is.na(log.annual.inc) | is.na(days.with.cr.line) | is.na(revol.util) | is.na(inq.last.6mths) | is.na(delinq.2yrs) | is.na(pub.rec))
 nrow(missing)
 table(missing$not.fully.paid)
+
 ## Problem 1.4
 # Use multiple imputation to fill in the missing data values
 install.packages("mice")
@@ -40,6 +42,17 @@ test = subset(impResults, spl = FALSE)
 # Use logistig regression on the training set to predict the dependent variable
 mod1 = glm(not.fully.paid ~ ., data = train, family = binomial)
 summary(mod1)
+
+## Problem 2.2
+# What is the value of Logit(A)-Logit(B), given Applicant A has FICO of 700 and Applicant B has FICO of 710
+logA = 9.260 + (-9.002e-03 * 700)
+logB = 9.260 + (-9.002e-03 * 710)
+ans1 = logA - logB
+ans1
+# What is the value of O(A)/O(B)
+ans2 = exp(logA)/exp(logB)
+ans2
+
 ## Problem 2.3
 # Predict the probability of the test set loans not being paid back in full. Store the probabilities in 'predicted.risk' var
 test$predicted.risk = predict(mod1, newdata = test, type = "response")
@@ -48,6 +61,7 @@ threshold = 0.5
 table(test$not.fully.paid, as.numeric(test$predicted.risk >= threshold))
 # Baseline model (using test set)
 table(test$not.fully.paid)
+
 ## Problem 2.4
 # Use the ROCR package to compute the test set AUC
 library(ROCR)
