@@ -77,8 +77,16 @@ summary(bivariate)
 # Check for correlation
 cor(train$int.rate, train$fico)
 
+## Problem 3.2
+# Make test set predictions on the bivariate model
+pred.bivariate = predict(bivariate, newdata = test, type = "response")
+# What is the highest predicted probability of a loan not being paid in full
+summary(pred.bivariate)
 
-
+## Problem 3.3
+# What is the test set AUC of the bivariate model
+pred.bivariate = prediction(pred.bivariate, test$not.fully.paid)
+as.numeric(performance(pred.bivariate, "auc")@y.values)
 
 
 
