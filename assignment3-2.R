@@ -88,6 +88,22 @@ summary(pred.bivariate)
 pred.bivariate = prediction(pred.bivariate, test$not.fully.paid)
 as.numeric(performance(pred.bivariate, "auc")@y.values)
 
+## Problem 4.1
+# How much does a $10 investment with an annual interest rate of 6% pay back after 3 years, using continuous compounding
+Investment = 10
+Rate = 0.06
+Time = 3
+Value = Investment*exp(Rate * Time)
+Value
+
+## Problem 4.2
+# What is the net value of the investment after accounting for the cost of the investment
+# Value = Investment*exp(Rate * Time) - Investment
+
+## Problem 5.1
+
+
+
 
 
 
