@@ -108,6 +108,32 @@ test$profit[test$not.fully.paid == 1] = -1
 summary(test$profit)
 
 ## Problem 6.1
+# An investment strategy based on risk
+# Use the subset() function to build a data frame called highInterest consisting of test set
+# loans with an interest rate of at least 15%
+highInterest = subset(test, int.rate >= 0.15)
+# What is the average profit of a $1 investment in one of these high-interest loans
+summary(highInterest)
+# What proportion of the high-interest loans were not paid back in full
+table(highInterst$not.fully.paid)
+
+## Problem 6.2
+# Determine the 100th smallest predicted probability of not paying in full by sorting the
+# predicted risks in increasing order
+cutoff = sort(highInterest$predicted.risk, decreasing = FALSE)[100]
+# Use the subset() function to build a data frame called selectedLoans consisting of 
+# high-interest loans with predicted risk not exceeding the cutoff
+selectedLoans = subset(highInterst, predicted.risk <= cutoff)
+# What is the profit of the investor, who invested $1 in each of these 100 loans
+sum(selectedLoans$profit)
+# How many of the selected loans were not paid back in full
+table(selectedLoans$not.fully.paid)
+
+# Assignment complete
+
+
+
+
 
 
 
