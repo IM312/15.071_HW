@@ -57,6 +57,31 @@ RMSE2 = sqrt(mean((PredTest - FluTest$ILI)^2))
 RMSE2
 
 ## Problem 4.1
+# Train a time series model - predict the ILI variable in the current week using the ILI variable from previous weeks
+# Install and load the zoo package
+install.packages("zoo")
+library(zoo)
+# Create the ILILag2 variable in the training set
+ILILag2 = lag(zoo(FluTrain$ILI), -2, na.pad = TRUE)
+# -2 passed to lag means to return 2 obs before the current one
+# na.pad=TRUE means to add missing values for the first to weeks of our dataset
+FluTrain$ILILag2 = coredata(ILILag2)
+# How many values are missing in the new ILILag2 variable
+summary(ILILag2)
+
+## Problem 4.2
+# Plot the lof of ILILag2 vs the log of ILI
+plot(log(FluTrain$ILILag2), log(FluTrain$ILI))
+
+## Problem 4.3
+# Train a lin reg model on the FluTrain dataset to predict the log of the ILI var using Queries and the log of ILILag2 var
+FluTrend2 = lm(log(ILI) ~ Queries + log(ILILag2), data = FluTrain)
+# Which coefficients are significant at the p=0.5 level
+summary(FluTrend2) # Model2 R-squared > Model1 R-squared
+
+## Problem 5.1
+
+
 
 
 
