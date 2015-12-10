@@ -48,6 +48,15 @@ FluTest$ILI[11] # Observed ILI = 2.293422
 (2.293422-2.187378)/2.293422
 
 ## Problem 3.3
+# What is the RMSE between our estimates and the actual observations for the percentage of ILI-related physician visits
+SSE = sum((PredTest - FluTest$ILI)^2)
+RMSE = sqrt(SSE/nrow(FluTest))
+RMSE
+# or
+RMSE2 = sqrt(mean((PredTest - FluTest$ILI)^2))
+RMSE2
+
+## Problem 4.1
 
 
 
