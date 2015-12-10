@@ -101,7 +101,13 @@ Value
 # Value = Investment*exp(Rate * Time) - Investment
 
 ## Problem 5.1
+# A Simple Investment Strategy
+test$profit = exp(test$int.rate*3) - 1
+test$profit[test$not.fully.paid == 1] = -1
+# What is the max profit of $10 investment in any loan in the testing set
+summary(test$profit)
 
+## Problem 6.1
 
 
 
