@@ -18,4 +18,13 @@ test = test[,!(names(test) %in% nonvars)]
 mod1 = lm(Temp ~ ., data = train)
 summary(mod1)
 
-## Problem 1.2
+## Problem 2.1
+# Explain the apparent contradiction of the neg correlation of CH4 and CFC.11
+cor(train$N2O, train$CFC.11)   # Collinearity!
+
+## Problem 2.2
+# Compute the correlations between all the variables in the training set
+cor(train)
+
+
+
