@@ -26,5 +26,31 @@ cor(train$N2O, train$CFC.11)   # Collinearity!
 # Compute the correlations between all the variables in the training set
 cor(train)
 
+## Problem 3.1
+# Build a new model using only MEI, TSI, Aerosols, and N2O using the training set
+mod2 = lm(Temp ~ MEI + TSI + Aerosols + N2O, data = train)
+# What is the coefficient of N2O
+summary(mod2)
+
+## Problem 4.1
+# Use the step() function 
+step(mod1)
+mod3 = lm(Temp ~ MEI + CO2 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data = train)
+summary(mod3)
+
+## Problem 5.1
+# Using the model produced from the step model, calculate temp predictions for the testing
+# data set, using the predict function
+tempPredict = predict(mod3, newdata = test)
+SSE = sum((tempPredict - test$Temp)^2)
+SST = sum((mean(train$Temp) - test$Temp)^2)
+R2 = 1 - SSE/SST
+R2
+
+## Done
+
+
+
+
 
 
