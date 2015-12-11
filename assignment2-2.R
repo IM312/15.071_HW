@@ -80,7 +80,7 @@ FluTrend2 = lm(log(ILI) ~ Queries + log(ILILag2), data = FluTrain)
 summary(FluTrend2) # Model2 R-squared > Model1 R-squared
 
 ## Problem 5.1
-
+# Test
 
 
 
