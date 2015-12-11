@@ -61,7 +61,7 @@ RMSE2
 # Install and load the zoo package
 install.packages("zoo")
 library(zoo)
-# Create the ILILag2 variable in the training set
+# Create the ILILag2 variable in the training set --> ARIMA models
 ILILag2 = lag(zoo(FluTrain$ILI), -2, na.pad = TRUE)
 # -2 passed to lag means to return 2 obs before the current one
 # na.pad=TRUE means to add missing values for the first to weeks of our dataset
@@ -80,7 +80,39 @@ FluTrend2 = lm(log(ILI) ~ Queries + log(ILILag2), data = FluTrain)
 summary(FluTrend2) # Model2 R-squared > Model1 R-squared
 
 ## Problem 5.1
-# Test
+# Modify the code from above to add an ILILag2 var to the FluTest data frame
+ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad = TRUE)
+FluTest$ILILag2 = coredata(ILILag2)
+# How many missing values are there in the new variable
+summary(ILILag2)
+
+## Problem 5.3
+# Fill in the missing values for ILILag2 in FluTest
+str(FluTrain)
+nrow(FluTrain)
+FluTest$ILILag2[1] = FluTrain$ILI[416]
+FluTest$ILILag2[2] = FluTrain$ILI[417]
+# What is the new value of the ILILag2 variable in the first row of FluTest
+FluTest$ILILag2[1]
+# What is the new value of the ILILag2 variable in the second row of FluTest
+FluTest$ILILag2[2]
+
+## Problem 5.4
+# Obtain test set predictions of the ILI variable from the FluTrend2 model
+PredTest2 = exp(predict(FluTrend2, newdata = FluTest))
+# What is the test-set RMSE of the FluTrend2 model
+SSE = sum((PredTest2 - FluTest$ILI)^2)
+RMSE = sqrt(SSE/nrow(FluTest))
+RMSE
+
+# FluTrend1 RMSE = 0.7490645
+# FluTrend2 RMSE = 0.2942029
+# FluTrend2 model obtained the best test-set RMSE
+
+# DONE
+
+
+
 
 
 
