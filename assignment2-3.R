@@ -6,3 +6,6 @@
 # Load training and testing data sets
 pisaTrain = read.csv("pisa2009train.csv")
 pisaTest = read.csv("pisa2009test.csv")
+# How many students are there in the training set
+str(pisaTrain)
+
