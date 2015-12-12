@@ -16,8 +16,17 @@ tapply(pisaTrain$readingScore, pisaTrain$male, mean)
 
 ## Problem 1.3
 # Which variables are missing data in at least one observation in the training set
+summary(pisaTrain)
 
-# test again
+## Problem 1.4
+# Remove observations with any missing values from pisaTrain and pisaTest
+pisaTrain = na.omit(pisaTrain)
+pisaTest = na.omit(pisaTest)
+# How many observations are now in the training set
+str(pisaTrain)
+
+
+
 
 
 
