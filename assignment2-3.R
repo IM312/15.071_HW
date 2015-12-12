@@ -8,7 +8,7 @@ pisaTrain = read.csv("pisa2009train.csv")
 pisaTest = read.csv("pisa2009test.csv")
 # How many students are there in the training set
 str(pisaTrain)
-<<<<<<< HEAD
+
 
 ## Problem 1.2
 # What is the average reading test score of males
@@ -16,8 +16,9 @@ tapply(pisaTrain$readingScore, pisaTrain$male, mean)
 
 ## Problem 1.3
 # Which variables are missing data in at least one observation in the training set
-=======
-#test
->>>>>>> ec06b5e6fd4893cc092b0048e409ae3e69a5899b
+
+# test again
+
+
 
 
