@@ -24,6 +24,16 @@ pisaTrain = na.omit(pisaTrain)
 pisaTest = na.omit(pisaTest)
 # How many observations are now in the training set
 str(pisaTrain)
+# How many observations are in the testing set
+str(pisaTest)
+
+## Problem 2.1
+str(pisaTrain)
+
+## Problem 2.2
+
+
+
 
 
 
