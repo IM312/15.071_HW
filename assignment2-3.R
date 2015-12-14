@@ -53,6 +53,20 @@ RMSE
 sqrt(mean(lmScore$residuals^2))
 
 ## Problem 3.3
+# Two students have all variable values the same, except Student A is in grade 11 and Student B is in grade 9. What is the
+# predicted reading score of Student A minus Student B
+2 * 29.542707 # grade coefficient = 29.542707 (the coefficient is the reading score between two students who are identical 
+# other than have a difference in grade of 1)
+
+## Problem 3.4
+# What is the meaning of the coefficient associated with raceethAsian (-4.110325)
+# Predicted difference in the reading score between Asian and white student who is otherwise identical
+
+## Problem 3.5
+# Based on significance codes, which variable are candidates for removal
+summary(lmScore) # Don't remove any binary variables since several are significant
+
+## Problem 4.1
 
 
 
