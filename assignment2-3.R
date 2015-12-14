@@ -31,6 +31,11 @@ str(pisaTest)
 str(pisaTrain)
 
 ## Problem 2.2
+# Unordered factors in regression models: define one level as the "reference level" and add a binary variable for each
+# of the remaining levels
+summary(pisaTrain$raceeth)
+
+## Problem 3.1
 
 
 
