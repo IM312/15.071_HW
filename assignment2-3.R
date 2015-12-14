@@ -36,6 +36,28 @@ str(pisaTrain)
 summary(pisaTrain$raceeth)
 
 ## Problem 3.1
+# Build the model: set the reference level of the factor
+pisaTrain$raceeth = relevel(pisaTrain$raceeth, "White")
+pisaTest$raceeth = relevel(pisaTest$raceeth, "White")
+# Build linear regression model using the training set to predict readingScore
+lmScore = lm(readingScore ~ ., data = pisaTrain)
+# What is the multiple R-squared of the model
+summary(lmScore) # 0.3251
+
+## Problem 3.2
+# What is the training-set RMSE of lmScore
+SSE = sum(lmScore$residuals^2)
+RMSE = sqrt(SSE/nrow(pisaTrain))
+RMSE
+#or
+sqrt(mean(lmScore$residuals^2))
+
+## Problem 3.3
+
+
+
+
+
 
 
 
