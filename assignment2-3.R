@@ -67,6 +67,14 @@ sqrt(mean(lmScore$residuals^2))
 summary(lmScore) # Don't remove any binary variables since several are significant
 
 ## Problem 4.1
+# Predict the reading scores of students in pisaTest
+predTest = predict(lmScore, newdata = pisaTest)
+# What is the range between max and min predicted reading score on the test set
+summary(predTest)
+
+## Problem 4.2
+
+
 
 
 
