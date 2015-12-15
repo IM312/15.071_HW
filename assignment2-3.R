@@ -73,6 +73,34 @@ predTest = predict(lmScore, newdata = pisaTest)
 summary(predTest)
 
 ## Problem 4.2
+# What is the SSE of lmScore on the testing set
+SSE = sum((predTest - pisaTest$readingScore)^2)
+SSE
+# What is the RMSE of lmScore on the testing set
+RMSE = sqrt(mean((predTest - pisaTest$readingScore)^2))
+RMSE
+
+## Problem 4.3
+# What is the predicted test score using the baseline model (computed with the training set!!)
+baseline = mean(pisaTrain$readingScore)
+baseline
+# What is the SSE of the baseline model on the testing set
+SSEbl = sum((baseline - pisaTest$readingScore)^2)
+SSEbl
+
+## Problem 4.4
+# What is the test set R-squared of lmScore
+SST = sum((mean(pisaTrain$readingScore) - pisaTest$readingScore)^2)
+SST
+R_squared = 1-SSE/SST
+R_squared
+
+## DONE!!
+
+
+
+
+
 
 
 
