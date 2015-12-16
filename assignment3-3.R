@@ -40,6 +40,15 @@ str(train)
 str(test)
 
 ## Problem 4.1
+# Train a logistic regression model on the training set with violator as dependent variable and all other variables as 
+# independent variables
+model1 = glm(violator ~ ., data = train, family = "binomial")
+# What variables are significant in the model
+summary(model1)
+
+# Problem 4.2
+
+
 
 
 
