@@ -1,3 +1,45 @@
 ## edX MITx 15.071x The Analytics Edge
 ## Assignment 3-3 Predicting Parole Violators
 ## Dataset --> parole.csv
+
+## Problem 1.1
+# Load the dataset
+parole = read.csv("parole.csv")
+# How many parolees are in the dataset
+str(parole)
+
+## Problem 1.2
+# How many parolees violated the terms of their parole
+table(parole$violator)
+
+## Problem 1.3
+# Variables male, race, state, crime, and viloator are unordered factors. State and crime have 3 or more levels
+
+## Problem 2.1
+# Convert the unordered variables with more than 3 levels to factors
+parole$state = as.factor(parole$state)
+parole$crime = as.factor(parole$crime)
+# Compare the output for factor variable and numerical variable
+summary(parole)
+# or
+summary(parole$state)
+summary(parole$crime)
+
+## Problem 2.2
+# Prep the data prior to splitting into test and train sets to save work
+
+## Problem 3.1
+# Split with the following commands
+set.seed(144)
+library(caTools)
+split = sample.split(parole$violator, SplitRatio = 0.7)
+train = subset(parole, split == TRUE)
+test = subset(parole, split == FALSE)
+# What proportion of parolees have been allocated to the training and testing sets
+str(train)
+str(test)
+
+## Problem 4.1
+
+
+
