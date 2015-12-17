@@ -47,7 +47,28 @@ model1 = glm(violator ~ ., data = train, family = "binomial")
 summary(model1)
 
 # Problem 4.2
-# test
+# What can we say based on the coefficient of the multiple.offenses variable
+var = exp(1.6119919)
+var  # parolee who committed multiple offenses has 5.01 times higher odds of being a violator
+# than a parolee who did not commit multiple offenses but is otherwise identical
+
+## Problem 4.3
+# Parolee: male, white, aged 50 years at release, from Maryland, served 3 months, max sentence
+# of 12 months, didn't commit multiple offenses, committed larceny
+# What are the odds the individual is a violator
+logit = -4.2411574+0.3869904*1+0.8867192*1-0.0001756*50+0.4433007*0+0.8349797*0-3.3967878*0-0.1238867*3+0.0802954*12+1.6119919*0+0.6837143*1-0.2781054*0-0.0117627*0
+logit
+odds = exp(logit)
+odds
+# What is the probability this individual is a violator
+Prob = 1/(1+exp(-logit))
+Prob
+
+
+
+
+
+
 
 
 
