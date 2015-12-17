@@ -64,6 +64,59 @@ odds
 Prob = 1/(1+exp(-logit))
 Prob
 
+## Problem 5.1
+# Obtain the model's predicted probabilities for parolees in the testing set
+predictTest = predict(model1, newdata = test, type = "response")
+summary(predictTest)
+
+## Problem 5.2
+# Evaluate the model's predictions on the test set using a threshold of 0.5
+# What is the model's sensitivity
+table(test$violator, predictTest > 0.5)
+sensitivity = 12/(11+12)
+sensitivity
+# What is the model's specificity
+specificity = 167/(167+12)
+specificity  # this model favors specificity over sensitivity
+# What is the model's accuracy
+accuracy = (167+12)/(167+12+11+12) # model has 12 false negatives at cutoff 0.5
+accuracy  # overall, the classifier is correct 88.6% of the time
+
+## Prblem 5.3
+# What is the accuracy of a simple model that predicts every parolee is a non-violator
+table(test$violator)
+accuracy2 = 179/(179+23) # baseline model has 23 false negatives
+accuracy2
+
+## Problem 5.5
+# The model is likely of value to the board (fewer false negatives) versus the baseline, and 
+# using a lower cutoff will likely increase the model's value
+
+## Problem 5.6
+# Using the ROCR package, what is the model's AUC value
+library(ROCR)
+predictTest = predict(model1, type = "response", newdata = test)
+ROCRpredTest = prediction(predictTest, test$violator)
+auc = as.numeric(performance(ROCRpredTest, "auc")@y.values)
+auc  # auc = 0.8945834
+
+## Problem 5.7
+# What is the meaning of AUC in this context
+# It's the probability the model can correctly differentiate between a randomly selected parole
+# violator and a randomly selected parole non-violator
+
+## Problem 6.1
+# The dataset suffers from selection bias since it does not contain parolees who neither
+# violated their parole nor completed their term in 2004, thus causing non-violators to be 
+# underrepresented
+# To correct this bias, the dataset should track a group of parolees from the start of their
+# parole until either they violated parole or they completed their term
+
+## DONE!! 
+
+
+
+
 
 
 
