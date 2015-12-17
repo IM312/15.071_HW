@@ -26,6 +26,23 @@ accuracy  # 0.754
 library(rpart)
 library(rpart.plot)
 CARTb = rpart(isB ~. -letter, data = train, method = "class")
+
+###########
+## Plots ##
+###########
+
+# Basic CART plot
+plot(CARTb)
+text(CARTb)  # blah
+
+# Fancy Plot
+install.packages("rattle")
+install.packages("RColorBrewer")
+library(rattle)
+library(RColorBrewer)
+
+fancyRpartPlot(CARTb)  # nice
+
 # What is the accuracy of the CART model on the test set (use type="class" when making predictions on the test set)
 predictCART = predict(CARTb, newdata = test, type = "class")
 table(test$isB, predictCART)
@@ -62,6 +79,18 @@ accuracy  # "P" has the most observations. 0.257
 # Build a classification tree to predict the letter, using the training set. Remove "isB" from the model, as this is related
 # to what we are trying to predict
 CARTletter = rpart(letter ~. -isB, data = train2, method = "class")
+
+###########
+## Plots ##
+###########
+
+# CART plot
+plot(CARTletter)
+text(CARTletter)
+
+# Fancy Plot
+fancyRpartPlot(CARTletter)
+
 # What is the test set accuracy of the CART model
 predictLetter = predict(CARTletter, newdata = test2, type = "class")
 table(test2$letter, predictLetter)
