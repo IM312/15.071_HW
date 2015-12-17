@@ -47,7 +47,7 @@ model1 = glm(violator ~ ., data = train, family = "binomial")
 summary(model1)
 
 # Problem 4.2
-
+# test
 
 
 
