@@ -47,18 +47,32 @@ accuracy  # 0.988
 ## Problem 2.1
 # Convert letter in the original data set to a factor
 letters$letter = as.factor(letters$letter)
+str(letters)
 # Generate new training and testing sets
 set.seed(2000)
 spl = sample.split(letters$letter, SplitRatio = 0.5)
-train = subset(letters, spl == TRUE)
-test = subset(letters, spl == FALSE)
+train2 = subset(letters, spl == TRUE)
+test2 = subset(letters, spl == FALSE)
 # What is the baseline accuracy on the testing set
-table(test$letter)
+table(test2$letter)
 accuracy = 401/(395+383+401+379)
 accuracy  # "P" has the most observations. 0.257
 
 ## Problem 2.2
-#test
+# Build a classification tree to predict the letter, using the training set
+CARTletter = rpart(letter ~. -isB, data = train2, method = "class")
+# What is the test set accuracy of the CART model
+predictLetter = predict(CARTletter, newdata = test2, type = "class")
+table(test2$letter, predictLetter)
+accuracy = (348+318+363+340)/nrow(test2) 
+accuracy  # 0.8787
+
+## Problem 2.3
+# Estimate a random forest model on the training data
+
+
+
+
 
 
 
