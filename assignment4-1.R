@@ -58,7 +58,7 @@ accuracy = 401/(395+383+401+379)
 accuracy  # "P" has the most observations. 0.257
 
 ## Problem 2.2
-
+#test
 
 
 
