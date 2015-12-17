@@ -59,7 +59,8 @@ accuracy = 401/(395+383+401+379)
 accuracy  # "P" has the most observations. 0.257
 
 ## Problem 2.2
-# Build a classification tree to predict the letter, using the training set
+# Build a classification tree to predict the letter, using the training set. Remove "isB" from the model, as this is related
+# to what we are trying to predict
 CARTletter = rpart(letter ~. -isB, data = train2, method = "class")
 # What is the test set accuracy of the CART model
 predictLetter = predict(CARTletter, newdata = test2, type = "class")
@@ -69,6 +70,29 @@ accuracy  # 0.8787
 
 ## Problem 2.3
 # Estimate a random forest model on the training data
+set.seed(1000)
+letterForest2 = randomForest(letter ~. -isB, data = train)
+# What is the accuracy of the random forest model
+predictForest2 = predict(letterForest2, newdata = test)
+table(test$letter, predictForest2)
+accuracy = (390+380+393+364)/nrow(test2)
+accuracy  # 0.980
+
+##################
+#### Summary ####
+#################
+
+## B/not B ##
+# Baseline = 0.754
+# CART = 0.936
+# Tree = 0.988
+
+## A,B,P,R ##
+# Baseline = 0.257
+# CART = 0.8787
+# Tress = 0.980
+
+## DONE!!
 
 
 
