@@ -45,6 +45,20 @@ accuracy = (1165+374)/nrow(test)
 accuracy  # 0.988
 
 ## Problem 2.1
+# Convert letter in the original data set to a factor
+letters$letter = as.factor(letters$letter)
+# Generate new training and testing sets
+set.seed(2000)
+spl = sample.split(letters$letter, SplitRatio = 0.5)
+train = subset(letters, spl == TRUE)
+test = subset(letters, spl == FALSE)
+# What is the baseline accuracy on the testing set
+table(test$letter)
+accuracy = 401/(395+383+401+379)
+accuracy  # "P" has the most observations. 0.257
+
+## Problem 2.2
+
 
 
 
