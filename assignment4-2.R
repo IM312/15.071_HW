@@ -39,6 +39,12 @@ accuracy
 ROCRpred = prediction(predictTest, test$over50k)
 auc = as.numeric(performance(ROCRpred, "auc")@y.values)
 auc  # 0.906
+
+# ROCR Plot
+ROCRperf = performance(ROCRpred, "tpr", "fpr")
+plot(ROCRperf, colorize = TRUE, print.cutoffs.at = seq(0,1,0.1), text.adj = c(-0.2,1.7))
+
+
 #####################
 ## Interpretation ##
 #####################
