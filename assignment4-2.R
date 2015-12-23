@@ -9,6 +9,7 @@ library(rpart)
 library(rpart.plot)
 library(rattle)
 library(RColorBrewer)
+library(randomForest)
 
 
 ## Problem 1.1
@@ -88,7 +89,55 @@ plot(ROCRperf)
 
 ## Problem 2.6
 # What is the AUC of the CART model on the test set
-as.numeric(performance(ROCRpred, "auc")@y.values)
+AUC = as.numeric(performance(ROCRpred, "auc")@y.values)
+AUC
+
+## Problem 3.1
+# Down-sample the training set
+set.seed(1)
+trainSmall = train[sample(nrow(train), 2000),]
+str(trainSmall)
+# Try building the random forest model
+mod3 = randomForest(over50k ~ ., data = trainSmall)
+# No error?!?
+
+## Problem 3.2
+# Rebuild the model without the "nativecountry" variable
+mod4 = randomForest(over50k ~ . - nativecountry, data = trainSmall)
+# What is the accuracy of the model on the test set
+set.seed(1)
+predictForest = predict(mod4, newdata = test)
+table(test$over50k, predictForest)
+accuracy = (8963+1914)/nrow(test)
+accuracy
+
+## Problem 3.3
+# Look at the number of times, aggregated over all of the trees in the random forest model, that a certain variable is
+# selected for a split
+vu = varUsed(mod4, count = TRUE)
+vusorted = sort(vu, decreasing = FALSE, index.return = TRUE)
+dotchart(vusorted$x, names(mod4$forest$xlevels[vusorted$ix]))
+# The most important variable in terms of splits is "age".
+
+## Problem 3.4
+# Compute the "impurity" metric, which measures how homogenous each bucket of the tree is. Whenever a variable is selected
+# and a split is performed, the impurity is dereased. One way to measure variable importance is to average the 
+# reduction in impurity, taken over all the times that a variable is selected for splitting
+varImpPlot(mod4)
+# "Occupation" should be the most important in terms of mean reduction in impurity
+
+## Problem 4.1
+
+
+
+
+
+
+
+
+
+
+
 
 
 
