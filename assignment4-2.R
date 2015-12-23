@@ -10,6 +10,8 @@ library(rpart.plot)
 library(rattle)
 library(RColorBrewer)
 library(randomForest)
+library(caret)
+library(e1071)
 
 
 ## Problem 1.1
@@ -53,6 +55,7 @@ plot(ROCRperf, colorize = TRUE, print.cutoffs.at = seq(0,1,0.1), text.adj = c(-0
 #####################
 ## Interpretation ##
 ####################
+
 # Given a random individual from the dataset who earned over $50k and a random indivdual from the dataset who did not earn
 # over $50k, the model will correctly classify which is which 90.6% of the time.
 
@@ -90,7 +93,7 @@ plot(ROCRperf)
 ## Problem 2.6
 # What is the AUC of the CART model on the test set
 AUC = as.numeric(performance(ROCRpred, "auc")@y.values)
-AUC
+AUC  # 0.843
 
 ## Problem 3.1
 # Down-sample the training set
@@ -109,7 +112,7 @@ set.seed(1)
 predictForest = predict(mod4, newdata = test)
 table(test$over50k, predictForest)
 accuracy = (8963+1914)/nrow(test)
-accuracy
+accuracy  # 0.8504
 
 ## Problem 3.3
 # Look at the number of times, aggregated over all of the trees in the random forest model, that a certain variable is
@@ -127,6 +130,55 @@ varImpPlot(mod4)
 # "Occupation" should be the most important in terms of mean reduction in impurity
 
 ## Problem 4.1
+# Use cross-validation to select CP
+set.seed(2)
+numFolds = trainControl(method = "cv", number = 10)
+cartGrid = expand.grid(.cp=seq(0.002, 0.1, 0.002))
+# Which cp value does the train function recommend
+train(over50k ~ ., data = train, method = "rpart", trControl = numFolds, tuneGrid = cartGrid)  # cp=0.002
+
+## Problem 4.2
+# Fit a CART model to the training data using the cp value. 
+mod5 = rpart(over50k ~., data = train, cp = 0.002)
+# What is the accuracy on the test set
+predictTest = predict(mod5, newdata = test, type = "class")
+table(test$over50k, predictTest)
+accuracy = (9159+1800)/nrow(test)
+accuracy  # 0.857 (varies slightly from expected answer = 0.8612)
+
+## Problem 4.3
+# Plot the CART tree for this model
+prp(mod5)
+# 20 splits!! (expected answer = 18 splits)
+# or
+fancyRpartPlot(mod5)
+
+#####################
+## Interpretation ##
+####################
+
+# By tuning cp, the accuracy of the model is improved but at the cost of a more complicated model
+
+##############
+## Summary ##
+##############
+
+# Baseline = 0.855
+# mod1 = 0.759
+# auc1 = 0.906
+# mod2 = 0.843
+# auc2 = 0.843
+# mod4 = 0.8504
+# mod5 = 0.857
+
+## DONE!!
+
+
+
+
+
+
+
 
 
 
