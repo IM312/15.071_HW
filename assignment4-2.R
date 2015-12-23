@@ -5,6 +5,10 @@
 ## Libraries
 library(caTools)
 library(ROCR)
+library(rpart)
+library(rpart.plot)
+library(rattle)
+library(RColorBrewer)
 
 
 ## Problem 1.1
@@ -52,6 +56,10 @@ plot(ROCRperf, colorize = TRUE, print.cutoffs.at = seq(0,1,0.1), text.adj = c(-0
 # over $50k, the model will correctly classify which is which 90.6% of the time.
 
 ## Problem 2.1
+mod2 = rpart(over50k ~., data = train, method = "class")
+fancyRpartPlot(mod2)
+prp(mod2)
+
 
 
 
