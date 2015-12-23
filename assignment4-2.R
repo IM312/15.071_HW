@@ -51,14 +51,46 @@ plot(ROCRperf, colorize = TRUE, print.cutoffs.at = seq(0,1,0.1), text.adj = c(-0
 
 #####################
 ## Interpretation ##
-#####################
+####################
 # Given a random individual from the dataset who earned over $50k and a random indivdual from the dataset who did not earn
 # over $50k, the model will correctly classify which is which 90.6% of the time.
 
 ## Problem 2.1
+# Build a CART model using the default parameters
 mod2 = rpart(over50k ~., data = train, method = "class")
+# Plot the tree. How many splits does the tree have
 fancyRpartPlot(mod2)
+# or
 prp(mod2)
+# or
+plot(mod2)
+text(mod2)
+
+## Problem 2.2
+# The first level split is on the "relationship" variable
+
+## Problem 2.3
+# The second level split is on the "education" and "capitalgain" variables
+
+## Problem 2.4
+# What is the accuracy of the CART model on the testing set (threshold=0.5)
+predictMod2 = predict(mod2, newdata = test, type = "class")
+table(test$over50k, predictMod2)
+accuracy = (9224+1558)/nrow(test)
+accuracy  # 0.843
+
+## Problem 2.5
+# Plot the ROC curve for the CART model
+predictROC = predict(mod2, newdata = test)
+ROCRpred = prediction(predictROC [,2], test$over50k)
+ROCRperf = performance(pred, "tpr", "fpr")
+plot(ROCRperf)
+
+## Problem 2.6
+# What is the AUC of the CART model on the test set
+as.numeric(performance(ROCRpred, "auc")@y.values)
+
+
 
 
 
