@@ -4,6 +4,11 @@
 
 ## Load libraries
 library(ROCR)
+library(rpart)
+library(rattle)
+library(RColorBrewer)
+library(rpart.plot)
+
 
 ## Problem 1.1
 # Load the data file
@@ -48,9 +53,30 @@ auc
 ## Interpretation ##
 ####################
 # Even though all of the variables are significant, the model does not improve over the baseline
-# of predicting that someone will not vote, and the AUC is low
+# of predicting that someone will not vote. Additionally, the AUC is low
 
 ## Problem 2.1
+# Build a CART tree using all data and the same four treatment variables. Don't use the option method = "class"
+mod2 = rpart(voting ~ civicduty + hawthorne + self + neighbors, data = gerber)
+# Plot the tree
+fancyRpartPlot(mod2) # No splits!
+
+## Problem 2.2
+# Build a new tree using the following command:
+mod3 = rpart(voting ~ civicduty + hawthorne + self + neighbors, data = gerber, cp = 0.0)
+fancyRpartPlot(mod3)
+
+## Problem 2.3
+# From the tree, what fraction of "Civic Duty" people voted
+# 0.31
+
+## Problem 2.4
+# Make a new tree that includes the "sex" variable
+mod4 = rpart(voting ~ sex + civicduty + hawthorne + self + neighbors, data = gerber, cp = 0.0)
+fancyRpartPlot(mod4)
+# or
+prp(mod4)
+
 
 
 
