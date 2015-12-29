@@ -4,6 +4,10 @@
 
 ## Load libraries
 library(tm)
+library(caTools)
+library(rpart)
+library(rpart.plot)
+
 
 ## Assignment goal:
 # Develop a wikipedia vandalism detector that uses machine learning to distinguish between valid edits and vandalism
@@ -58,6 +62,49 @@ sparseRemoved
 ncol(wordsRemoved)
 
 ## Problem 1.5
+# Combine the two dataframes into a data frame called wikiWords
+wikiWords = cbind(wordsAdded, wordsRemoved)
+# Add the Vandal column
+wikiWords$Vandal = wiki$Vandal
+# Set the random seed to 123 and split the data set putting 70% in the training set
+set.seed(123)
+split = sample.split(wikiWords$Vandal, SplitRatio = 0.7)
+trainWiki = subset(wikiWords, split == TRUE)
+testWiki = subset(wikiWords, split == FALSE)
+# What is the accuracy on the test set of a baseline method always predicting "not vandalism"
+table(testWiki$Vandal)  # 0.5314
+
+## Problem 1.6
+# Build a CART model to predict Vandal, using the training set and all of the other variables as independent variables
+mod1 = rpart(Vandal ~ ., data = trainWiki, method = "class")
+# What is the accuracy of the model on the test set, using a threshold of 0.5
+predictWiki = predict(mod1, newdata = testWiki, type = "class")
+table(testWiki$Vandal, predictWiki)
+accuracy = (618+12)/nrow(testWiki)
+accuracy  # 0.5417
+
+## Problem 1.7
+# Plot the CART tree
+prp(mod1)
+# How many word stems does the model use
+# 2
+
+## Problem 1.8
+####################
+## Interpretation ##
+####################
+# Even though the CART model beats the baseline, bag of words is not very predictive for this problem
+# Overfitting???
+predictWiki2 = predict(mod1, newdata = trainWiki, type = "class")
+table(trainWiki$Vandal, predictWiki2)
+accuracy = (1443+33)/nrow(trainWiki)
+accuracy  # 0.5440 --> No overfitting
+
+## Problem 2.1
+
+
+
+
 
 
 
