@@ -144,6 +144,37 @@ table(testWiki3$Vandal, predictWiki3)
 accuracy = (514+248)/nrow(testWiki3)
 accuracy  # 0.6552
 
+## Problem 3.1
+# Make a copy of wikiWords2
+wikiWords3 = wikiWords2
+# Add the two original variables Minor and LoggedIn to the new data frame
+wikiWords3$Minor = wiki$Minor
+wikiWords3$LoggedIn = wiki$Loggedin
+# Using the previously created split variable make new training and testing sets
+trainWiki4 = subset(wikiWords3, split == TRUE)
+testWiki4 = subset(wikiWords3, split == FALSE)
+# Build a CART model using all of the training data
+mod4 = rpart(Vandal ~ ., data = trainWiki4, method = "class")
+# What is the accuracy of the model on the test set
+predictWiki4 = predict(mod4, newdata = testWiki4, type = "class")
+table(testWiki4$Vandal, predictWiki4)
+accuracy = (595+241)/nrow(testWiki4)
+accuracy  # 0.7188
+
+## Problem 3.2
+# Plot the CART tree
+prp(mod4)
+# How many splits are there in the tree
+# 3
+
+####################
+## Interpretation ##
+####################
+
+# By adding new independent variables, the model's accuracy was improved without making the model more complicated
+
+## DONE!
+
 
 
 
