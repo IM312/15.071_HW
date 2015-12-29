@@ -101,6 +101,31 @@ accuracy = (1443+33)/nrow(trainWiki)
 accuracy  # 0.5440 --> No overfitting
 
 ## Problem 2.1
+# Hypothesis: the presence of a web address is a sign of vandalism
+# Search for the presence of a web address in the words added by searching for "http" in the Added column
+# Create a copy of your dataframe 
+wikiWords2 = wikiWords
+# Make a new column in wikiWords2 that is 1 if "http" was in Added
+wikiWords2$HTTP = ifelse(grepl("http", wiki$Added, fixed = TRUE), 1, 0)
+# How many revisions added a link
+table(wikiWords2$HTTP)
+
+## Problem 2.2
+# Use the previous split variable to make new training and testing sets
+trainWiki2 = subset(wikiWords2, split == TRUE)
+testWiki2 = subset(wikiWords2, split == FALSE)
+# Create a new CART model using this new variable as one of the independent variables
+mod2 = rpart(Vandal ~ ., data = trainWiki2, method = "class")
+# What is the accuracy of the CART model on the test set, using a threshold of 0.5
+predictWiki3 = predict(mod2, newdata = testWiki2, type = "class")
+table(testWiki2$Vandal, predictWiki3)
+accuracy = (609+57)/nrow(testWiki2)
+accuracy  # 0.5727
+
+## Problem 2.3
+
+
+
 
 
 
