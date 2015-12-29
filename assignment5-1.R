@@ -95,8 +95,8 @@ prp(mod1)
 ####################
 # Even though the CART model beats the baseline, bag of words is not very predictive for this problem
 # Overfitting???
-predictWiki2 = predict(mod1, newdata = trainWiki, type = "class")
-table(trainWiki$Vandal, predictWiki2)
+predictWikiFit = predict(mod1, newdata = trainWiki, type = "class")
+table(trainWiki$Vandal, predictWikiFit)
 accuracy = (1443+33)/nrow(trainWiki)
 accuracy  # 0.5440 --> No overfitting
 
@@ -111,18 +111,44 @@ wikiWords2$HTTP = ifelse(grepl("http", wiki$Added, fixed = TRUE), 1, 0)
 table(wikiWords2$HTTP)
 
 ## Problem 2.2
-# Use the previous split variable to make new training and testing sets
+# Use the previously created split variable make new training and testing sets
 trainWiki2 = subset(wikiWords2, split == TRUE)
 testWiki2 = subset(wikiWords2, split == FALSE)
 # Create a new CART model using this new variable as one of the independent variables
 mod2 = rpart(Vandal ~ ., data = trainWiki2, method = "class")
 # What is the accuracy of the CART model on the test set, using a threshold of 0.5
-predictWiki3 = predict(mod2, newdata = testWiki2, type = "class")
-table(testWiki2$Vandal, predictWiki3)
+predictWiki2 = predict(mod2, newdata = testWiki2, type = "class")
+table(testWiki2$Vandal, predictWiki2)
 accuracy = (609+57)/nrow(testWiki2)
 accuracy  # 0.5727
 
 ## Problem 2.3
+# Hypothesis 2: The number of words added or removed is predictive, perhaps more so than the actual words themselves
+# Sum the rows of dtmAdded and dtmRemoved and add them as new variables in the wikiWords2 data frame
+wikiWords2$NumWordsAdded = rowSums(as.matrix(dtmAdded))
+wikiWords2$NumWordsRemoved = rowSums(as.matrix(dtmRemoved))
+# What is the average number of words added
+summary(wikiWords2)
+# or 
+mean(wikiWords2$NumWordsAdded)
+
+## Problem 2.4
+# Using the previously created split variable make new training and testing sets
+trainWiki3 = subset(wikiWords2, split == TRUE)
+testWiki3 = subset(wikiWords2, split == FALSE)
+# Creat a new CART model
+mod3 = rpart(Vandal ~ ., data = trainWiki3, method = "class")
+# What is the accuracy of the CART model on the test set
+predictWiki3 = predict(mod3, newdata = testWiki3, type = "class")
+table(testWiki3$Vandal, predictWiki3)
+accuracy = (514+248)/nrow(testWiki3)
+accuracy  # 0.6552
+
+
+
+
+
+
 
 
 
