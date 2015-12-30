@@ -3,6 +3,9 @@
 ## Dataset --> clinical_trial.csv
 
 ## Load libraries
+library(tm)
+library(SnowballC)
+
 
 ## Problem 1.1
 # Load the data
@@ -25,6 +28,57 @@ sum(nchar(trials$abstract)==0)
 # What is the shortest title of any article
 which.min(nchar(trials$title))
 trials$title[1258]
+
+## Problem 2.1
+# Note: because we have both title and abstract info for trials, two corpera need to be built
+# Preprocessing:
+# Convert the title variable to corpusTitle and the abstract variable to corpusAbstract
+corpusTitle = Corpus(VectorSource(trials$title))
+corpusAbstract = Corpus(VectorSource(trials$abstract))
+# Convert the corpera to lowercase
+corpusTitle = tm_map(corpusTitle, tolower)
+corpusAbstract = tm_map(corpusAbstract, tolower)
+corpusTitle = tm_map(corpusTitle, PlainTextDocument)
+corpusAbstract = tm_map(corpusAbstract, PlainTextDocument)
+# Remove punctuation in the corpera
+corpusTitle = tm_map(corpusTitle, removePunctuation)
+corpusAbstract = tm_map(corpusAbstract, removePunctuation)
+# Remove the english language stop words
+corpusTitle = tm_map(corpusTitle, removeWords, c(stopwords("english")))
+corpusAbstract = tm_map(corpusAbstract, removeWords, c(stopwords("english")))
+# Stem the words in each corpera
+corpusTitle = tm_map(corpusTitle, stemDocument)
+corpusAbstract = tm_map(corpusAbstract, stemDocument)
+# Build a document term matrix from each corpera
+dtmTitle = DocumentTermMatrix(corpusTitle)
+dtmAbstract = DocumentTermMatrix(corpusAbstract)
+# Limit the dtms to terms with sparseness of at most 95%
+dtmTitle = removeSparseTerms(dtmTitle, 0.95)
+dtmAbstract = removeSparseTerms(dtmAbstract, 0.95)
+# Convert the dtms to data frames
+dtmTitle = as.data.frame(as.matrix(dtmTitle))
+dtmAbstract = as.data.frame(as.matrix(dtmAbstract))
+
+# How many terms remain in dtmTitle
+str(dtmTitle)
+# or 
+dim(dtmTitle)
+# or 
+ncol(dtmTitle)
+# How many terms remain in dtmAbstract
+str(dtmAbstract)
+
+## Problem 2.3
+# What is the most frequent word stem across all abstracts
+csAbstract = colSums(dtmAbstract)
+which.max(csAbstract)
+
+## Problem 3.1
+
+
+
+
+
 
 
 
