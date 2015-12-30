@@ -16,3 +16,20 @@ summary(nchar(trials$abstract))
 max(nchar(trials$abstract))
 
 ## Problem 1.2
+# How many search results provided no abstract
+table(nchar(trials$abstract) == 0)
+# or
+sum(nchar(trials$abstract)==0)
+
+## Problem 1.3
+# What is the shortest title of any article
+which.min(nchar(trials$title))
+trials$title[1258]
+
+
+
+
+
+
+
+
