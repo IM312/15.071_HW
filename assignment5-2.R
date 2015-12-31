@@ -8,6 +8,7 @@ library(SnowballC)
 library(caTools)
 library(rpart)
 library(rpart.plot)
+library(ROCR)
 
 
 ## Problem 1.1
@@ -97,7 +98,7 @@ str(dtm)
 set.seed(144)
 split = sample.split(dtm$trial, SplitRatio = 0.7)
 train = subset(dtm, split == TRUE)
-test = subset(dtm, split = FALSE)
+test = subset(dtm, split == FALSE)
 # What is the accuracy of the baseline method on the training set
 table(train$trial)
 accuracy = 730/nrow(train)
@@ -138,6 +139,29 @@ specificity  # 0.8644
 # The CART model favors specificity over sensitivity
 
 ## Problem 4.1
+# Evaluate the CART model on the testing set using the predict function and creating a vector of predicted probabilities
+predTest = predict(trialCART, newdata = test)[,2]
+# What is the testomg set accuracy, assuming a probability threshold of 0.5
+table(test$trial, predTest >= 0.5)
+accuracy = (261+162)/nrow(test)
+accuracy  # 0.7581
+
+## Problem 4.2
+# What is the testing set AUC of the prediction model
+predROCR = prediction(predTest, test$trial)
+performance(predROCR, "auc")@y.values
+# 0.8371
+
+####################
+## Interpretation ##
+####################
+
+# The model can differentiate between a clinical trial and a non-clinical trial from a randomly selected document about 
+# 83% of the time
+
+## DONE!! 
+
+
 
 
 
