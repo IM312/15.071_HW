@@ -1,10 +1,13 @@
 ## edX MITx 15.071x The Analytics Edge
-## Assignment 5-2 Automating 
+## Assignment 5-2 Automating Reviews in Medicine
 ## Dataset --> clinical_trial.csv
 
 ## Load libraries
 library(tm)
 library(SnowballC)
+library(caTools)
+library(rpart)
+library(rpart.plot)
 
 
 ## Problem 1.1
@@ -90,6 +93,53 @@ dtm$trial = trials$trial
 str(dtm)
 
 ## Problem 3.3
+# Split the data frame into training and testing sets
+set.seed(144)
+split = sample.split(dtm$trial, SplitRatio = 0.7)
+train = subset(dtm, split == TRUE)
+test = subset(dtm, split = FALSE)
+# What is the accuracy of the baseline method on the training set
+table(train$trial)
+accuracy = 730/nrow(train)
+accuracy  # 0.5607
+
+## Problem 3.4
+# Build a CART model using all the independent variables in the training set
+trialCART = rpart(trial ~ ., data = train, method = "class")
+# Plot the CART model
+prp(trialCART)
+# What is the name of the first variable the model splits on
+# Tphase
+
+## Problem 3.5
+# Obtain the training set predictions for the model
+predTrain = predict(trialCART)[,2]
+# Extract the predicted probability of a result being a trial
+summary(predTrain)
+# What is the maximum predicted probability for any result 
+# 0.87190
+
+## Problem 3.7
+# Predict the probability that an observation is a clinical trial, using a threshold of 0.5
+table(train$trial, predTrain >= 0.5)
+accuracy = (631+441)/nrow(train)
+accuracy  # 0.8233
+# What is the training set sensitivity of the CART model
+sensitivity = 441/(131+441)
+sensitivity  # 0.7710
+# What is the training set specificity of the CART model
+specificity = 631/(631+99)
+specificity  # 0.8644
+
+####################
+## Interpretation ##
+####################
+
+# The CART model favors specificity over sensitivity
+
+## Problem 4.1
+
+
 
 
 
