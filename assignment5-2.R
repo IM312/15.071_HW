@@ -74,6 +74,22 @@ csAbstract = colSums(dtmAbstract)
 which.max(csAbstract)
 
 ## Problem 3.1
+# Fix that some of the variables in the two data frames have the same name
+colnames(dtmTitle) = paste0("T", colnames(dtmTitle))
+colnames(dtmAbstract) = paste0("A", colnames(dtmAbstract))
+# What is the effect of these two functions
+# The letter T is added in front of all title variable names and the letter A is added in front of all abstract variable
+# names
+
+## Problem 3.2
+# Combine dtmTitle and dtmAbstract into a single data frame
+dtm = cbind(dtmTitle, dtmAbstract)
+# Add the dependent variable "trial" to dtm
+dtm$trial = trials$trial
+# How many columns are in the combined data frame
+str(dtm)
+
+## Problem 3.3
 
 
 
