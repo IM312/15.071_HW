@@ -62,6 +62,19 @@ colnames(emailsSparse) = make.names(colnames(emailsSparse))
 # What word stem shows up most frequently across all the emails
 which.max(colSums(emailsSparse))
 
+## Problem 2.4
+# Add a variable called "spam" to emailsSparse containing the email spam labels
+emailsSparse$spam = emails$spam
+# How many stems appear at least 5000 times in the ham emails in the dataset
+sort(colSums(subset(emailsSparse, spam == 0)))
+
+## Problem 2.5
+# How many stems appear at least 1000 times in the spam emails in the dataset
+sort(colSums(subset(emailsSparse, spam == 1)))
+
+## Problem 2.6
+
+
 
 
 
