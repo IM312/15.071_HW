@@ -9,6 +9,7 @@ library(caTools)
 library(rpart)
 library(rpart.plot)
 library(randomForest)
+library(ROCR)
 
 
 ## Problem 1.1
@@ -120,6 +121,40 @@ summary(spamLog)  # 0 (a symptom of the logistic regression algo not converging)
 
 
 ## Problem 3.3
+# How many of the stem words "enron", "hou", "vinc", and "Kaminski" appear in the CART tree
+prp(spamCART)  # 2
+
+## Problem 3.4
+# What is the training set accuracy of spamLog, using a threshold of 0.5
+table(train$spam, predTrainLog > 0.5)
+accuracy = (3052+954)/nrow(train)
+accuracy  # 0.9990025
+
+## Problem 3.5
+# What is the training set AUC of spamLog
+ROCRPredTrain = prediction(predTrainLog, train$spam)
+auc = as.numeric(performance(ROCRPredTrain, "auc") @ y.values)
+auc  # 0.9999959
+
+## Problem 3.6
+# What is the training set accuracy of spamCART, using a threshold of 0.5
+table(train$spam, predTrainCART > 0.5)
+accuracy = (2885+894)/nrow(train)
+accuracy  # 0.942394
+
+## Problem 3.7
+# What is the training set AUC of spamCART
+predictionTrainCART = prediction(predTrainCART, train$spam)
+auc = as.numeric(performance(predictionTrainCART, "auc") @ y.values)
+auc  # 0.9696044
+
+## Problem 3.8
+
+
+
+
+
+
 
 
 
