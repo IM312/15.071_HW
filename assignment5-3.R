@@ -235,6 +235,18 @@ auc  # 0.9975656
 # The logistic regression model demonstrated the greatest degree of overfitting because the model obtained nearly
 # perfect accuracy and AUC on the training set but far-from-perfect accuracy and AUC on the testing set.
 
+############# 
+## Part II ##
+############
+
+## Problem 5.1
+# False positive --> test indicates an email is spam, but it is in fact not spam. For a user that does not check their 
+# spam folder often this type of error can be costly.
+# False negative --> test indicates an email is not spam, but it is in fact spam. For a user who is particularly 
+# annoyed by spam in their inbox, this type of error would be costly.
+
+## Problem 6.1
+
 
 
 
