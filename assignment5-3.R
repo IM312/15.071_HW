@@ -223,7 +223,7 @@ auc  # 0.9975656
 # RF = 0.975553
 # Log Reg = 0.9505239
 
-## AUC = 
+## AUC 
 # CART = 0.963176
 # RF = 0.9975656
 # Log Reg = 0.9627517
@@ -282,17 +282,50 @@ prp(spam2CART)
 
 ## Problem 6.6
 # Perform test-set predictions using the new CART and random forest models
+predTest2CART = predict(spam2CART, newdata = test2)[,2]
+predTest2RF = predict(spam2RF, newdata = test2, type = "prob")[,2]
+# What is the test-set accuracy of spam2CART, using a threshold of 0.5
+table(test2$spam, predTest2CART > 0.5)
+accuracy = (1214+384)/nrow(test2)
+accuracy  # 0.9301513
 
+## problem 6.7
+# What is the test-set AUC of spam2CART
+predictionTest2CART = prediction(predTest2CART, test2$spam)
+auc = as.numeric(performance(predictionTest2CART, "auc") @ y.values)
+auc  # 0.9582438
 
+## Problem 6.8
+# What is the test-set accuracy of spam2RF, using threshold 0.5
+table(test2$spam, predTest2RF >= 0.5)
+accuracy = (1296+383)/nrow(test2)
+accuracy  # 0.9772992
 
+## Problem 6.9
+# What is the test-set AUC of spam2RF
+predictionTest2RF = prediction(predTest2RF, test2$spam)
+auc = as.numeric(performance(predictionTest2RF, "auc") @ y.values)
+auc  # 0.9980905
 
+#############
+## Summary ##
+#############
 
+## Accuracy
+# CART = 0.9301513
+# RF = 0.9772992
 
+## AUC 
+# CART = 0.9582438
+# RF = 0.9980905
 
+##########
+## Note ##
+##########
 
+# Adding the logWordCount variable didn't result in improved results on the test set for the CART or random forest model
 
-
-
+## Problem 7.1
 
 
 
