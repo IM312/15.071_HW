@@ -246,13 +246,42 @@ auc  # 0.9975656
 # annoyed by spam in their inbox, this type of error would be costly.
 
 ## Problem 6.1
+# Obtain the word counts for each email
+wordCount = rowSums(as.matrix(dtm))
 
+## Problem 6.2
+# Plot the distribution of wordCount in the dataset
+hist(wordCount)  # Nearly all of the observations are in the left of the graph --> the distribution is skew right
 
+## Problem 6.3
+# Plot the distribution of log(wordCount)
+hist(log(wordCount))  # The data is not skewed
 
+## Problem 6.4
+# Create a variable that is equal to log(wordCount)
+emailsSparse$logWordCount = log(wordCount)
+# Plot logWordCount against whether a message is spam
+boxplot(logWordCount ~ spam, data = emailsSparse)
+# or
+boxplot(emailsSparse$logWordCount ~ emailsSparse$spam)
 
+## Problem 6.5
+# Hypothesis: because logWordCount differs between spam and ham messages, it might be useful in predicting whether an 
+# email is spam
 
+# Split emailsSparse into new training and testing sets
+train2 = subset(emailsSparse, split == TRUE)
+test2 = subset(emailsSparse, split == FALSE)
+# Train a CART tree using train2 and the default parameters
+spam2CART = rpart(spam ~ ., data = train2, method = "class")
+# Train a random forest with the default parameters
+set.seed(123)
+spam2RF = randomForest(spam ~ ., data = train2, method = "class")
+# Is the new logWordCount variable integrated into the tree
+prp(spam2CART)
 
-
+## Problem 6.6
+# Perform test-set predictions using the new CART and random forest models
 
 
 
