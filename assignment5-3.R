@@ -175,9 +175,65 @@ auc  # 0.9979116
 # Log Reg = 0.9999959
 
 ## Problem 4.1
+# Obtain predicted probabilities for the testing set for each model
+predTestCART = predict(spamCART, newdata = test)[,2]
+predTestRF = predict(spamRF, newdata = test, type = "prob")[,2]
+predTestLog = predict(spamLog, newdata = test, type = "response")
+# What is the testing set accuracy of spamLog, using a threshold of 0.5
+table(test$spam, predTestLog > 0.5)
+accuracy = (1257+376)/nrow(test)
+accuracy  # 0.9505239
 
+## Problem 4.2
+# What is the testing set AUC of spamLog
+ROCRPredTest = prediction(predTestLog, test$spam)
+auc = as.numeric(performance(ROCRPredTest, "auc") @ y.values)
+auc  # 0.9627517
 
+## Problem 4.3
+# What is the testing set accuracy of spamCART, using a threshold of 0.5
+table(test$spam, predTestCART > 0.5)
+accuracy = (1228+386)/nrow(test)
+accuracy  # 0.9394645
 
+## Problem 4.4
+# What is the testing set AUC of spamCART
+predictionTestCART = prediction(predTestCART, test$spam)
+auc = as.numeric(performance(predictionTestCART, "auc") @ y.values)
+auc  # 0.963176
+
+## Problem 4.5 
+# What is the testing set accuracy of spamRF, using a threshold of 0.5
+table(test$spam, predTestRF >= 0.5)
+accuracy = (1290+386)/nrow(test)
+accuracy  # 0.975553
+
+## Problem 4.6
+# What is the testing set AUC of spamRF
+predictionTestRF = prediction(predTestRF, test$spam)
+auc = as.numeric(performance(predictionTestRF, "auc") @ y.values)
+auc  # 0.9975656
+
+#############
+## Summary ##
+#############
+
+## Accuracy
+# CART = 0.9394645
+# RF = 0.975553
+# Log Reg = 0.9505239
+
+## AUC = 
+# CART = 0.963176
+# RF = 0.9975656
+# Log Reg = 0.9627517
+
+##########
+## Note ##
+##########
+
+# The logistic regression model demonstrated the greatest degree of overfitting because the model obtained nearly
+# perfect accuracy and AUC on the training set but far-from-perfect accuracy and AUC on the testing set.
 
 
 
