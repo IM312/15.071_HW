@@ -149,6 +149,34 @@ auc = as.numeric(performance(predictionTrainCART, "auc") @ y.values)
 auc  # 0.9696044
 
 ## Problem 3.8
+# What is the training set accuracy of spamRF, using a threshold of 0.5
+table(train$spam, predTrainRF >= 0.5)
+accuracy = (3013+914)/nrow(train)
+accuracy  # 0.9793017
+
+## Problem 3.9
+# What is the training set AUC of spamRF
+predictionTrainRF = prediction(predTrainRF, train$spam)
+auc = as.numeric(performance(predictionTrainRF, "auc") @ y.values)
+auc  # 0.9979116
+
+#############
+## Summary ##
+#############
+
+## Accuracy
+# CART = 0.942394
+# RF = 0.9793017
+# Log Reg = 0.9990025
+
+## AUC
+# CART = 0.9696044
+# RF = 0.9979116
+# Log Reg = 0.9999959
+
+## Problem 4.1
+
+
 
 
 
