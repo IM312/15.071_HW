@@ -10,6 +10,8 @@ library(rpart)
 library(rpart.plot)
 library(randomForest)
 library(ROCR)
+library(RTextTools)
+
 
 
 ## Problem 1.1
@@ -325,7 +327,12 @@ auc  # 0.9980905
 
 # Adding the logWordCount variable didn't result in improved results on the test set for the CART or random forest model
 
-## Problem 7.1
+## Problem 7.1 - n-grams
+# Create a document term matrix containing all 2-grams in our dataset
+dtm2gram = create_matrix(as.character(corpus), ngramLength = 2)
+# Returns "Error in FUN(X[[2L]], ...) : non-character argument" 
+# How many terms are in dtm2gram
+
 
 
 
