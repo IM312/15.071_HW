@@ -331,7 +331,7 @@ auc  # 0.9980905
 # Create a document term matrix containing all 2-grams in our dataset
 dtm2gram = create_matrix(as.character(corpus), ngramLength = 2)
 # Returns "Error in FUN(X[[2L]], ...) : non-character argument" 
-# How many terms are in dtm2gram
+
 
 
 
