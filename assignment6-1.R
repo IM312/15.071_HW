@@ -65,6 +65,37 @@ KmeansCluster7 = subset(dailykos, KmeansCluster$cluster == 7)
 table(KmeansCluster$cluster)
 
 ## Problem 2.2
+# Output the six most frequent words in each cluster
+tail(sort(colMeans(KmeansCluster1[-1]))) 
+tail(sort(colMeans(KmeansCluster2[-1]))) 
+tail(sort(colMeans(KmeansCluster3[-1]))) 
+tail(sort(colMeans(KmeansCluster4[-1]))) 
+tail(sort(colMeans(KmeansCluster5[-1]))) 
+tail(sort(colMeans(KmeansCluster6[-1]))) 
+tail(sort(colMeans(KmeansCluster7[-1]))) 
+
+## Problem 2.3
+# Which Heirarchical Cluster best corresponds to K-Means Cluster 2
+table(heirGroups)
+table(KmeansCluster$cluster)
+# or
+table(heirGroups, KmeansCluster$cluster) #  HC 7  116/(116+10+11+5+2) = 80.6%
+
+## Problem 2.4
+# Which Heirarchical Cluster best corresponds to K-Means Cluster 3
+table(heirGroups, KmeansCluster$cluster)  # HC 5  171/(171+42+64) = 61.7%
+
+## Problem 2.5
+# Which Heirarchical Cluster best corresponds to K-Means Cluster 7
+table(heirGroups, KmeansCluster$cluster)  # No HC contains at least half of points in KMC 7
+
+## Problem 2.6
+# Which Heirarchical Cluster best corresponds to K-Means Cluster 6
+table(heirGroups, KmeansCluster$cluster)  # HC 2 320/(320+8+1) = 97.3%
+
+## DONE!!
+
+
 
 
 
