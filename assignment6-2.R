@@ -26,4 +26,38 @@ summary(airlinesNorm)  # all variables now have mean = 0.0
 # Which data now has the smallest min value
 summary(airlinesNorm)
 
+## Problem 2.1
+# Compute the (euclidean) distances between data points
+distance = dist(airlinesNorm, method = "euclidean")
+# Run the heirarchical clustering algorithm on the normalized data
+HeirClust = hclust(distance, method = "ward.D")
+# Plot the dendrogram
+plot(HeirClust)
+
+# Visualize the cuts
+rect.hclust(HeirClust, k=5, border = "red")
+
+## Problem 2.2
+# Divide the data into 5 clusters
+airlineClusters = cutree(HeirClust, k=5)
+# How many data points are in Cluster 1
+table(airlineClusters)
+
+## Problem 2.3
+# Compare the average values in each of the variables for the 5 clusters (the centroids)
+tapply(airlines$Balance, airlineClusters, mean)
+tapply(airlines$QualMiles, airlineClusters, mean)
+tapply(airlines$BonusMiles, airlineClusters, mean)
+tapply(airlines$BonusTrans, airlineClusters, mean)
+tapply(airlines$FlightMiles, airlineClusters, mean)
+tapply(airlines$FlightTrans, airlineClusters, mean)
+tapply(airlines$DaysSinceEnroll, airlineClusters, mean)
+# advanced method
+lapply(split(airlines, airlineClusters), colMeans)
+
+## Problem 2.4
+
+
+
+
 
