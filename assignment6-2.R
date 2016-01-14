@@ -56,6 +56,28 @@ tapply(airlines$DaysSinceEnroll, airlineClusters, mean)
 lapply(split(airlines, airlineClusters), colMeans)
 
 ## Problem 2.4
+# Compared to the other clusters, Cluster 2 has the largest values in QualMiles, FlightMiles, and FlightTrans variables
+
+## Problem 2.5
+# Compared to the other clusters, Cluster 3 has the largest values in Balance, BonusMiles, and BonusTrans variables
+
+## Problem 2.6
+# Compared to the other clusters, Cluster 4 does not have the largest values in any variables
+
+## Problem 2.7
+# Compared to the othe clusters, Cluster 5 does not have the largest values in any variables
+
+## Problem 3.1
+# Set the seed to 88
+set.seed(88)
+# Run the K-Means clustering algorithm on the normalized data, setting the argument iter.max = 100
+KMC = kmeans(airlinesNorm, centers = 5, iter.max = 100)
+# How many clusters have more than 1,000 observations
+table(KMC$cluster)
+
+## DONE!!
+
+
 
 
 
